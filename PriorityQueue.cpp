@@ -1,5 +1,7 @@
 #include <cstdlib>
 #include <algorithm>
+#include <cmath>
+#include <iostream>
 
 #include "PriorityQueue.hpp"
 typedef PriorityQueue::DataType DataType;  // for simplicity
@@ -70,5 +72,24 @@ unsigned int PriorityQueue::size() const {
 }
 // Print the contents of the priority queue.
 void PriorityQueue::print() const {
+	cout << "[";
+	for (int i = 1; i <= size_; i++) {
+		cout << heap_[i];
+		if (i != size_ + 1)
+			cout << ", ";
+	}
+	cout << "]";
 
+//	int depth = (int)ceil(pow(capacity_+1,0.5));
+//	for (int i = 1; i <= size_; i++) {
+//
+//
+//		int numLevel = (int)round(pow(2.0,i * 1.0));
+//		for(int j = 0; j < numLevel; j++) {
+//			cout << heap_[i];
+//			if (j != numLevel)
+//				cout << "\t";
+//		}
+//		cout << endl;
+//	}
 }
