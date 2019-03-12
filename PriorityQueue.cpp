@@ -1,6 +1,8 @@
 #include <cstdlib>
+#include <algorithm>
 
 #include "PriorityQueue.hpp"
+typedef PriorityQueue::DataType DataType;  // for simplicity
 
 using namespace std;
 
@@ -44,11 +46,9 @@ bool PriorityQueue::dequeue() {
 		int maxChild = heap_[2*cur] > heap_[2*cur+1]? 2*cur : 2*cur+1;
 		int temp = heap_[maxChild];
 		heap_[maxChild] = heap_[cur];
-		heap_[cur] = maxChild;
+		heap_[cur] = temp;
 		cur = maxChild;
 	}
-
-
 	return true;
 }
 
