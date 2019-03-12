@@ -33,4 +33,6 @@ int main()
     cout << "Test3: " << get_status_str(btree_test3_passed) << endl;
 
     system("pause");
+
+    return 0;
 }

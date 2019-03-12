@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 using namespace std;
-typedef BinarySearchTree::DataType DataType
+typedef BinarySearchTree::DataType DataType;
 
 BinarySearchTree::BinarySearchTree()
 {
