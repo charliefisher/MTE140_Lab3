@@ -55,6 +55,7 @@ public:
   // purposes.
   void print() const;
   
+
 private:
   // Optional function.
   // Recursively get the maximum depth from a given node. Call on root_ first.
