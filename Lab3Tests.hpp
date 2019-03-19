@@ -53,7 +53,50 @@ public:
     ASSERT_TRUE( !q.enqueue(7) );
     ASSERT_TRUE( q.max() == 5 );
     ASSERT_TRUE( q.full() );
+
+    ASSERT_TRUE(test4());
+
     return true;
+  }
+
+  bool test4() {
+	  cout << endl << endl << "TEST 4" << endl;
+	  PriorityQueue q(10);
+
+	  ASSERT_TRUE(q.empty());
+	  ASSERT_TRUE(q.size() == 0);
+	  ASSERT_TRUE(q.enqueue(69));
+	  ASSERT_TRUE(q.max() == 69);
+	  ASSERT_TRUE(q.enqueue(420));
+	  ASSERT_TRUE(q.enqueue(10));
+	  q.print();
+	  ASSERT_TRUE(q.max() == 420);
+	  ASSERT_TRUE(!q.full());
+	  ASSERT_TRUE(q.size() == 3);
+	  ASSERT_TRUE(q.dequeue());
+	  ASSERT_TRUE(q.size() == 2);
+	  q.print();
+	  ASSERT_TRUE(q.max() == 69);
+
+	  for (int i = 0; i < 8; i++) {
+		  ASSERT_TRUE(q.enqueue(i*10));
+	  }
+	  q.print();
+	  ASSERT_TRUE(q.max() == 70);
+	  ASSERT_TRUE(!q.enqueue(42));
+	  ASSERT_TRUE(q.full());
+	  ASSERT_TRUE(q.size() == 10);
+
+	  for (int i = 0; i < 10; i++) {
+		  cout << endl;
+		  q.print();
+		  cout << q.dequeue() << "  ";
+	  }
+
+	  ASSERT_TRUE(q.empty());
+
+	  cout << endl << "PASS TEST 4" << endl;
+	  return true;
   }
 };
 

@@ -20,8 +20,6 @@ PriorityQueue::~PriorityQueue() {
 	heap_ = NULL;
 }
 
-// Enqueues "val" into the priority queue. Returns false if failed, true
-// otherwise. Assume no duplicate entries will be entered.
 bool PriorityQueue::enqueue(DataType val) {
 	if (full())
 		return false;
@@ -39,57 +37,85 @@ bool PriorityQueue::enqueue(DataType val) {
 // Dequeues the top element with the maximum value (priority) and rearranges
 // the resulting heap. Returns false if failed, true otherwise.
 bool PriorityQueue::dequeue() {
+	//	cout << "called dequeue" << endl;
+	//	print();
+	//	cout << endl << "size " << size() << endl;
 	if (empty())
 		return false;
-	heap_[1] = heap_[size_];
-	size_--;
-	int cur = 1;
-	while (std::max(heap_[2*cur], heap_[2*cur+1]) > heap_[cur] && cur >= size_) {
-		int maxChild = heap_[2*cur] > heap_[2*cur+1]? 2*cur : 2*cur+1;
-		int temp = heap_[maxChild];
-		heap_[maxChild] = heap_[cur];
-		heap_[cur] = temp;
-		cur = maxChild;
+	else if (size() == 1) {
+		size_--;
+		return true;
 	}
+	heap_[1] = heap_[size_]; // replace root with bottom right most leaf node
+	size_--; // decrement size as that part of the array should now be inaccessible
+
+	//keep switching root with largest child
+
+	int cur = 1, lastCur = 0;
+	do {
+		lastCur = cur;
+		if (size_ >= 2*cur + 1) { // has two child nodes
+			if (std::max(heap_[2*cur], heap_[2*cur+1]) > heap_[cur]) {
+				int maxChild = heap_[2 * cur] > heap_[2 * cur + 1] ? 2 * cur : 2 * cur + 1;
+				int temp = heap_[maxChild];
+				heap_[maxChild] = heap_[cur];
+				heap_[cur] = temp;
+				cur = maxChild;
+			}
+		}
+		else if(size_ >= 2*cur) { // only has a left child
+			if (heap_[2*cur] > heap_[cur]) {
+				int temp = heap_[cur];
+				heap_[cur] = heap_[cur*2];
+				heap_[cur*2] = temp;
+				cur = 2*cur;
+			}
+		}
+
+	} while (lastCur != cur);
+
+
+
+//cur = 1;
+//	while (std::max(heap_[2*cur], heap_[2*cur+1]) > heap_[cur] && cur >= size_) {
+//		int maxChild = heap_[2*cur] > heap_[2*cur+1]? 2*cur : 2*cur+1;
+//		int temp = heap_[maxChild];
+//		heap_[maxChild] = heap_[cur];
+//		heap_[cur] = temp;
+//		cur = maxChild;
+//	}
+//	print();
 	return true;
+//	else if (size_ <= 3) { // case where after removing root, we won't have multiple child nodes
+//			size_--;
+//			if ()
+//
+//			return true;
+//		}
 }
 
-// Returns the max element of the priority queue, but does not remove it.
 DataType PriorityQueue::max() const {
 	return heap_[1];
 }
-// Returns true if the priority queue is empty; false otherwise.
+
 bool PriorityQueue::empty() const {
 	return size_ == 0;
 }
-// Returns true if the priority queue is full; false otherwise.
+
 bool PriorityQueue::full() const {
 	return size_ == capacity_;
 }
-// Returns the number of elements in the priority queue.
+
 unsigned int PriorityQueue::size() const {
 	return size_;
 }
-// Print the contents of the priority queue.
+
 void PriorityQueue::print() const {
 	cout << "[";
 	for (int i = 1; i <= size_; i++) {
 		cout << heap_[i];
-		if (i != size_ + 1)
+		if (i != size_)
 			cout << ", ";
 	}
 	cout << "]";
-
-//	int depth = (int)ceil(pow(capacity_+1,0.5));
-//	for (int i = 1; i <= size_; i++) {
-//
-//
-//		int numLevel = (int)round(pow(2.0,i * 1.0));
-//		for(int j = 0; j < numLevel; j++) {
-//			cout << heap_[i];
-//			if (j != numLevel)
-//				cout << "\t";
-//		}
-//		cout << endl;
-//	}
 }
