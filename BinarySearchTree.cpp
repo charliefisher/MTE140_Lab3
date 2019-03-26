@@ -94,7 +94,7 @@ bool BinarySearchTree::insert(DataType value)
 				size_++;
 				return true;
 			}
-			else if(value = currNode->val)
+			else if(value == currNode->val)
 			{
 				return false;
 			}
@@ -111,24 +111,82 @@ bool BinarySearchTree::remove(DataType val)
 
 }
 
-bool BinarySearchTree::exists(DataType val) const
+bool BinarySearchTree::exists(DataType value) const
 {
+	if(root_ == NULL)
+	{
+		return false;
+	}
+	else
+	{
+		Node* currNode = root_;
+		for(int i=size_;i>0;i--) //might want to make this a while loop
+			{
+				Node* left = currNode->left;
+				Node* right = currNode->right;
+				if(value > currNode->val && right != NULL)
+				{
+					currNode = right;
+					continue;
+				}
+				else if(value < currNode->val && left != NULL)
+				{
+					currNode = left;
+					continue;
+				}
+				else if(value == currNode->val)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 
+			}
+	}
 }
 
 DataType BinarySearchTree::min() const
 {
-
+	//assume this is never called on an empty tree
+	Node* currNode = root_;
+	while(currNode->left != NULL)
+	{
+		currNode = currNode->left;
+	}
+	return currNode->val;
 }
 
 DataType BinarySearchTree::max() const
 {
-
+	//assume this is never called on an empty tree
+		Node* currNode = root_;
+		while(currNode->right != NULL)
+		{
+			currNode = currNode->right;
+		}
+		return currNode->val;
 }
 
 unsigned int  BinarySearchTree::depth() const
 {
 
+}
+
+
+
+
+int depthCall(BinarySearchTree::Node* tree)
+{
+	if(tree->left == NULL && tree->right == NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1 + max(depthCall(tree->left),depthCall(tree->right));
+	}
 }
 void BinarySearchTree::print() const
 {
