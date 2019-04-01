@@ -188,8 +188,139 @@ public:
     std::string tree_level_order = level_order(bst.root_);
     // Compare the tree's representation to the expected tree.
     ASSERT_TRUE(tree_level_order.compare(expected_tree_level_order) == 0)
+
+    ASSERT_TRUE(test4());
+
     return true;
   }
+
+	bool test4() {
+		BinarySearchTree bst;
+		for (unsigned int i = 0; i < 10; i++) {
+			ASSERT_TRUE(bst.insert(i * 10))
+			ASSERT_TRUE(bst.depth() == i + 1);
+		}
+		ASSERT_TRUE(bst.root_->right == NULL);
+		ASSERT_TRUE(bst.root_->left->val == 20);
+
+		bst.print();
+
+		ASSERT_TRUE(bst.max() == 90);
+		ASSERT_TRUE(bst.min() == 0);
+		ASSERT_TRUE(bst.depth() == 10);
+		ASSERT_TRUE(bst.root_->val == 0);
+		ASSERT_TRUE(bst.exists(20));
+		ASSERT_TRUE(!bst.exists(25));
+		ASSERT_TRUE(bst.getNodeDepth(bst.root_) == 1);
+		ASSERT_TRUE(bst.size() == 10);
+		ASSERT_TRUE(!bst.remove(45));
+		ASSERT_TRUE(bst.remove(40));
+		ASSERT_TRUE(!bst.exists(40));
+
+		bst.print();
+
+		for (int i = 0; i < 10; i++) {
+			if (i != 4) {
+				ASSERT_TRUE(bst.remove(i * 10));
+				ASSERT_TRUE(bst.root_->val == (i + 1) * 10);
+				if (i < 9) {
+					ASSERT_TRUE(bst.min() == (i + 1) * 10);
+					ASSERT_TRUE(bst.max() == 90);
+				}
+			} else {
+				ASSERT_TRUE(!bst.remove(i * 10));
+				ASSERT_TRUE(bst.root_->val == 50);
+				ASSERT_TRUE(bst.min() == 50);
+				ASSERT_TRUE(bst.max() == 90);
+			}
+		}
+		bst.print();
+		ASSERT_TRUE(bst.size() == 0);
+
+		// increasing order now
+		for (int i = 10; i >= 1; i++) {
+			ASSERT_TRUE(bst.insert(i * 10))
+			ASSERT_TRUE(bst.depth() == 11-i);
+		}
+		ASSERT_TRUE(bst.root_->left == NULL);
+		ASSERT_TRUE(bst.root_->right->val == 90);
+		bst.print();
+
+		ASSERT_TRUE(bst.max() == 100);
+		ASSERT_TRUE(bst.min() == 10);
+		ASSERT_TRUE(bst.depth() == 10);
+		ASSERT_TRUE(bst.root_->val == 100);
+		ASSERT_TRUE(bst.exists(20));
+		ASSERT_TRUE(!bst.exists(25));
+		ASSERT_TRUE(bst.getNodeDepth(bst.root_) == 1);
+		ASSERT_TRUE(bst.size() == 10);
+		ASSERT_TRUE(!bst.remove(45));
+		ASSERT_TRUE(bst.remove(40));
+		ASSERT_TRUE(!bst.exists(40));
+
+		for (int i = 10; i >= 1; i++) {
+			if (i != 4) {
+				ASSERT_TRUE(bst.remove(i * 10));
+				ASSERT_TRUE(bst.root_->val == ((i-1) * 10));
+				if (i > 1) {
+					ASSERT_TRUE(bst.min() == 10);
+					ASSERT_TRUE(bst.max() == (i-1)*10);
+				}
+			} else {
+				ASSERT_TRUE(!bst.remove(i * 10));
+				ASSERT_TRUE(bst.root_->val == 30);
+				ASSERT_TRUE(bst.min() == 10);
+				ASSERT_TRUE(bst.max() == 30);
+			}
+		}
+		bst.print();
+		ASSERT_TRUE(bst.size() == 0);
+
+		// Add even tree tests now
+		ASSERT_TRUE(bst.insert(41));
+		ASSERT_TRUE(bst.depth() == 1);
+		ASSERT_TRUE(bst.insert(20));
+		ASSERT_TRUE(bst.depth() == 2);
+		ASSERT_TRUE(bst.insert(11));
+		ASSERT_TRUE(bst.depth() == 3);
+		ASSERT_TRUE(bst.insert(29));
+		ASSERT_TRUE(bst.depth() == 3);
+		ASSERT_TRUE(bst.insert(32));
+		ASSERT_TRUE(bst.depth() == 4);
+		ASSERT_TRUE(bst.insert(65));
+		ASSERT_TRUE(bst.depth() == 4);
+		ASSERT_TRUE(bst.insert(50));
+		ASSERT_TRUE(bst.depth() == 4);
+		ASSERT_TRUE(bst.insert(91));
+		ASSERT_TRUE(bst.depth() == 4);
+		ASSERT_TRUE(bst.insert(72));
+		ASSERT_TRUE(bst.depth() == 4);
+		ASSERT_TRUE(bst.insert(99));
+		ASSERT_TRUE(bst.depth() == 4);
+		bst.print();
+
+		ASSERT_TRUE(bst.size() == 10);
+		ASSERT_TRUE(bst.max() == 99);
+		ASSERT_TRUE(bst.min() == 11);
+		ASSERT_TRUE(bst.root_->right->left->left == NULL);
+		ASSERT_TRUE(bst.root_->left->left->left == NULL);
+		ASSERT_TRUE(bst.remove(41));
+		ASSERT_TRUE(bst.root_->val == 50);
+		ASSERT_TRUE(bst.root_->right->val == 65);
+		ASSERT_TRUE(bst.root_->left->val == 20);
+		ASSERT_TRUE(bst.remove(50));
+		ASSERT_TRUE(bst.depth == 3);
+		ASSERT_TRUE(bst.root_->val == 65);
+		ASSERT_TRUE(bst.root_->right->val == 91);
+		ASSERT_TRUE(bst.root_->left->val == 20);
+		ASSERT_TRUE(bst.root_->left->right->right->val == 32);
+		ASSERT_TRUE(bst.root_->left->right->right->left == NULL);
+		ASSERT_TRUE(bst.root_->left->right->right->right == NULL);
+		ASSERT_TRUE(bst.getNodeDepth(bst.root_->left->right->right) == 4)
+
+		cout << endl << endl << "PASSED TEST 4" << endl << endl;
+		return true;
+	}
 };
 
 
