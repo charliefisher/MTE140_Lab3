@@ -309,7 +309,7 @@ public:
 		ASSERT_TRUE(bst.root_->right->val == 65);
 		ASSERT_TRUE(bst.root_->left->val == 20);
 		ASSERT_TRUE(bst.remove(50));
-		ASSERT_TRUE(bst.depth == 3);
+		ASSERT_TRUE(bst.depth() == 3);
 		ASSERT_TRUE(bst.root_->val == 65);
 		ASSERT_TRUE(bst.root_->right->val == 91);
 		ASSERT_TRUE(bst.root_->left->val == 20);
