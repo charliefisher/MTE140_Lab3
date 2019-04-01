@@ -9,7 +9,7 @@ typedef PriorityQueue::DataType DataType;  // for simplicity
 using namespace std;
 
 PriorityQueue::PriorityQueue(unsigned int capacity) {
-	capacity == 0 ? 16:capacity;
+	capacity = capacity == 0 ? 16:capacity;
 	size_ = 0;
 	capacity_ = capacity;
 	heap_ = new DataType[capacity_+1];
