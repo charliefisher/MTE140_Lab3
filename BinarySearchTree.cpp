@@ -243,17 +243,19 @@ DataType BinarySearchTree::max() const
 
 int BinarySearchTree::getNodeDepth(Node* tree) const
 {
-	if(tree == NULL)
-	{
-		return 0;
-	}
-	else if(tree->left == NULL && tree->right == NULL)
+	//if(tree == NULL)
+	//{
+	//	return 0;
+	//}
+	if(tree->left == NULL && tree->right == NULL)
 	{
 		return 0;
 	}
 	else
 	{
-		return (1 + std::max(getNodeDepth(tree->left),getNodeDepth(tree->right)));
+		int leftTree = getNodeDepth(tree->left);
+		int rightTree = getNodeDepth(tree->right);
+		return (1 + std::max(rightTree, leftTree));
 	}
 }
 
