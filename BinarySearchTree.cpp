@@ -243,14 +243,14 @@ DataType BinarySearchTree::max() const
 
 int BinarySearchTree::getNodeDepth(Node* tree) const
 {
-	//if(tree == NULL)
+	if(tree == NULL)
+	{
+		return -1;
+	}
+	//if(tree->left == NULL && tree->right == NULL)
 	//{
 	//	return 0;
 	//}
-	if(tree->left == NULL && tree->right == NULL)
-	{
-		return 0;
-	}
 	else
 	{
 		int leftTree = getNodeDepth(tree->left);
