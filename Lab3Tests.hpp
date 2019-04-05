@@ -185,14 +185,13 @@ public:
 
 	      ASSERT_TRUE(bst.remove(8));
 	      ASSERT_TRUE(bst.size() == 2);
-
 	      bst.print();
 
-//cout<<bst.depth();
-//	      std::string tree_level_order = level_order(bst.root_);
-	      //Compare the tree's representation to the expected tree.
-//	      cout << endl <<level_order(bst.root_) <<endl;
-//	      ASSERT_TRUE(tree_level_order.compare(expected_tree_level_order) == 0)
+//	      cout<<bst.depth();
+//	  std::string tree_level_order = level_order(bst.root_);
+	 // Compare the tree's representation to the expected tree.
+//	 cout << endl <<level_order(bst.root_) <<endl;
+//	 ASSERT_TRUE(tree_level_order.compare(expected_tree_level_order) == 0)
 
 //   ASSERT_TRUE(test4());
 
