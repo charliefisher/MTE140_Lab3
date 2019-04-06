@@ -325,7 +325,7 @@ int BinarySearchTree::getNodeDepth(Node* tree) const
 	*/
 	{
 	    if (tree == NULL)
-	        return 0;
+	        return -1;
 	    else
 	    {
 

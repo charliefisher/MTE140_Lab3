@@ -202,7 +202,7 @@ public:
 		BinarySearchTree bst;
 		for (unsigned int i = 0; i < 10; i++) {
 			ASSERT_TRUE(bst.insert(i * 10));
-			ASSERT_TRUE(bst.depth() == i+1);
+			ASSERT_TRUE(bst.depth() == i);
 			cout << bst.depth();
 		}
 //		ASSERT_TRUE(bst.root_->left == NULL); //switched left and right
