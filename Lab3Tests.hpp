@@ -205,22 +205,22 @@ public:
 			ASSERT_TRUE(bst.depth() == i);
 			cout << bst.depth();
 		}
-//		ASSERT_TRUE(bst.root_->left == NULL); //switched left and right
-//		ASSERT_TRUE(bst.root_->right->val == 10);
+		ASSERT_TRUE(bst.root_->left == NULL); //switched left and right
+		ASSERT_TRUE(bst.root_->right->val == 10);
 
 //		bst.print();
 
-//		ASSERT_TRUE(bst.max() == 90);
-//		ASSERT_TRUE(bst.min() == 0);
-//		ASSERT_TRUE(bst.depth() == 9);
-//		ASSERT_TRUE(bst.root_->val == 0);
-//		ASSERT_TRUE(bst.exists(20));
-//		ASSERT_TRUE(!bst.exists(25));
-//		ASSERT_TRUE(bst.getNodeDepth(bst.root_) == 9); //switch this to equal 9 based on the depth fucntion
-//		ASSERT_TRUE(bst.size() == 10);
-//		ASSERT_TRUE(!bst.remove(45));
-//		ASSERT_TRUE(bst.remove(40));
-//		ASSERT_TRUE(!bst.exists(40));
+		ASSERT_TRUE(bst.max() == 90);
+		ASSERT_TRUE(bst.min() == 0);
+		ASSERT_TRUE(bst.depth() == 9);
+		ASSERT_TRUE(bst.root_->val == 0);
+		ASSERT_TRUE(bst.exists(20));
+	ASSERT_TRUE(!bst.exists(25));
+		ASSERT_TRUE(bst.getNodeDepth(bst.root_) == 9); //switch this to equal 9 based on the depth fucntion
+		ASSERT_TRUE(bst.size() == 10);
+		ASSERT_TRUE(!bst.remove(45));
+		ASSERT_TRUE(bst.remove(40));
+		ASSERT_TRUE(!bst.exists(40));
 //
 //		bst.print();
 //

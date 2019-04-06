@@ -104,6 +104,7 @@ bool recursiveRemove(DataType value, BinarySearchTree::Node *root, BinarySearchT
 
       delete root;
       root_prev = NULL;
+      root = NULL;
       //delete root;
 
 			return true;
@@ -112,11 +113,21 @@ bool recursiveRemove(DataType value, BinarySearchTree::Node *root, BinarySearchT
 		{
 			//swap root with right
 
-      BinarySearchTree::Node* oldRoot = root;
+     /*
+			BinarySearchTree::Node* oldRoot = root;
 			BinarySearchTree::Node* newRoot = root->right;
 			root_prev = newRoot;
 			delete oldRoot;
       oldRoot = NULL;
+			return true;
+			*/
+			DataType newVal = root->right->val;
+			root->val = newVal;
+
+			delete root->right;
+			root->left = NULL;
+
+
 			return true;
 
 
@@ -240,6 +251,10 @@ bool BinarySearchTree::remove(DataType value)
 
 bool recursiveExists(DataType value, BinarySearchTree::Node *root_)
 {
+	if(root_ == NULL)
+	{
+		return false;
+	}
 	if(value == root_->val)
 	{
 		return true;
