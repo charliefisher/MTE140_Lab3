@@ -307,19 +307,36 @@ int BinarySearchTree::getNodeDepth(Node* tree) const
 	//{
 	//	return -1;
 	//}
-	if(root_ !=NULL)
-	{
-		return 0;
-	}
+	//if(root_ !=NULL)
+	//{
+	//	return 0;
+	//}
+	/*
 	if(tree->left == NULL && tree->right == NULL)
 	{
-		return 0;
+		return 1;
 	}
 	else
 	{
 		int leftTree = getNodeDepth(tree->left);
 		int rightTree = getNodeDepth(tree->right);
 		return (1 + std::max(rightTree, leftTree));
+	}
+	*/
+	{
+	    if (tree == NULL)
+	        return 0;
+	    else
+	    {
+
+	        int leftDepth = getNodeDepth(tree->left);
+	        int rightDepth = getNodeDepth(tree->right);
+
+
+	        if (leftDepth > rightDepth)
+	            return(leftDepth + 1);
+	        else return(rightDepth + 1);
+	    }
 	}
 
 	/*
@@ -340,10 +357,10 @@ unsigned int BinarySearchTree::depth() const
 {
 	//if(size_ == 1)
 		//return getNodeDepth(root_);
-	if (size_ == 1)
-	{
-		return 0;
-	}
+	//if (size_ == 1)
+	//{
+	//	return 0;
+	//}
 	return getNodeDepth(root_);
 }
 

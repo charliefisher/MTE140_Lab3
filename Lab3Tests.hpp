@@ -185,25 +185,26 @@ public:
 
 	      ASSERT_TRUE(bst.remove(8));
 	      ASSERT_TRUE(bst.size() == 2);
-	      bst.print();
+	      //bst.print();
 
-	      cout<<bst.depth();
+	      //cout<<bst.depth();
 	  std::string tree_level_order = level_order(bst.root_);
 	  //Compare the tree's representation to the expected tree.
 	 cout << endl <<level_order(bst.root_) <<endl;
 	 ASSERT_TRUE(tree_level_order.compare(expected_tree_level_order) == 0)
 
-//   ASSERT_TRUE(test4());
+   ASSERT_TRUE(test4());
 
     return true;
   }
 
-//	bool test4() {
-//		BinarySearchTree bst;
-//		for (unsigned int i = 0; i < 10; i++) {
-//			ASSERT_TRUE(bst.insert(i * 10))
-//			ASSERT_TRUE(bst.depth() == i);
-//		}
+	bool test4() {
+		BinarySearchTree bst;
+		for (unsigned int i = 0; i < 10; i++) {
+			ASSERT_TRUE(bst.insert(i * 10));
+			ASSERT_TRUE(bst.depth() == i+1);
+			cout << bst.depth();
+		}
 //		ASSERT_TRUE(bst.root_->left == NULL); //switched left and right
 //		ASSERT_TRUE(bst.root_->right->val == 10);
 
@@ -324,8 +325,8 @@ public:
 //		bst.print();
 
 //		cout << endl << endl << "PASSED TEST 4" << endl << endl;
-//		return true;
-//	}
+		return true;
+	}
 
 };
 
