@@ -100,6 +100,7 @@ bool recursiveRemove(DataType value, BinarySearchTree::Node *root_)
 		if(root_->left == NULL  && root_->right == NULL) //node has no children
 		{
 			delete root_;
+      root_ = NULL;
 			return true;
 		}
 		else if (root_->left == NULL  && root_->right != NULL) //node has one child
@@ -109,16 +110,34 @@ bool recursiveRemove(DataType value, BinarySearchTree::Node *root_)
 			BinarySearchTree::Node* newRoot = root_->right;
 			root_ = newRoot;
 			delete oldRoot;
+      oldRoot = NULL;
 			return true;
 		}
 		else if (root_->left != NULL  && root_->right == NULL) //node has one child
 		{
 			//swap root with left
-			BinarySearchTree::Node* oldRoot = root_;
+			/*
+      BinarySearchTree::Node* oldRoot = root_;
 			BinarySearchTree::Node* newRoot = root_->left;
-			root_ = newRoot;
+			root_ = oldRoot;
+
+      delete oldRoot;
+      oldRoot = NULL;
+      */
+			BinarySearchTree::Node* oldRoot = root_;
+			//BinarySearchTree::Node* newRoot = root_->left;
+			root_ = root_->left;
 			delete oldRoot;
+      oldRoot = NULL;
 			return true;
+      //DataType newVal = newRoot->val;
+      //oldRoot->val = newVal;
+      //newRoot = NULL;
+     // delete newRoot;
+
+
+      //return true;
+
 		}
 		else //node has two children
 		{
@@ -134,6 +153,7 @@ bool recursiveRemove(DataType value, BinarySearchTree::Node *root_)
 			BinarySearchTree::Node* newRoot = currNode;
 			root_ = newRoot;
 			delete oldRoot;
+      oldRoot = NULL;
 			return true;
 		}
 	}
@@ -163,7 +183,11 @@ bool recursiveRemove(DataType value, BinarySearchTree::Node *root_)
 
 bool BinarySearchTree::remove(DataType value)
 {
-	if(root_ == NULL)
+	if(exists(value) == false)
+  {
+    return false;
+  }
+  if(root_ == NULL)
 	{
 		return false;
 	}
@@ -243,30 +267,49 @@ DataType BinarySearchTree::max() const
 
 int BinarySearchTree::getNodeDepth(Node* tree) const
 {
-	if(tree == NULL)
-	{
-		return -1;
-	}
-	//if(tree->left == NULL && tree->right == NULL)
+
+	//if(tree == NULL)
 	//{
-	//	return 0;
+	//	return -1;
 	//}
+	if(root_ !=NULL)
+	{
+		return 0;
+	}
+	if(tree->left == NULL && tree->right == NULL)
+	{
+		return 0;
+	}
 	else
 	{
 		int leftTree = getNodeDepth(tree->left);
 		int rightTree = getNodeDepth(tree->right);
 		return (1 + std::max(rightTree, leftTree));
 	}
+
+	/*
+	if (newroot_ == nullptr)
+		return -1;
+
+	int leftDepth = getNodeDepth(newroot_->left);
+	int rightDepth = getNodeDepth(newroot_->right);
+
+	if ( leftDepth > rightDepth)
+		return leftDepth + 1;
+	return rightDepth + 1;
+	*/
+
 }
 
 unsigned int BinarySearchTree::depth() const
 {
-	//if(root_ == NULL)
-	//{
-	//	return 0;
-	//}
-	unsigned int returnVal = getNodeDepth(this->root_);
-	return returnVal;
+	//if(size_ == 1)
+		//return getNodeDepth(root_);
+	if (size_ == 1)
+	{
+		return 0;
+	}
+	return getNodeDepth(root_);
 }
 
 void recursivePrint(BinarySearchTree::Node* root, int level)
