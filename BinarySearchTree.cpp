@@ -93,27 +93,44 @@ bool BinarySearchTree::insert(DataType value)
 
 }
 
-bool recursiveRemove(DataType value, BinarySearchTree::Node *root_)
+bool recursiveRemove(DataType value, BinarySearchTree::Node *root, BinarySearchTree::Node *root_prev)
 {
-	if(root_->val == value)
+	if(root->val == value)
 	{
-		if(root_->left == NULL  && root_->right == NULL) //node has no children
+		if(root->left == NULL  && root->right == NULL) //node has no children
 		{
-			delete root_;
-      root_ = NULL;
+
+      //BinarySearchTree::Node *oldRoot = root;
+
+      delete root;
+      root_prev = NULL;
+      //delete root;
+
 			return true;
 		}
-		else if (root_->left == NULL  && root_->right != NULL) //node has one child
+		else if (root->left == NULL  && root->right != NULL) //node has one child
 		{
 			//swap root with right
-			BinarySearchTree::Node* oldRoot = root_;
-			BinarySearchTree::Node* newRoot = root_->right;
-			root_ = newRoot;
+
+      BinarySearchTree::Node* oldRoot = root;
+			BinarySearchTree::Node* newRoot = root->right;
+			root_prev = newRoot;
 			delete oldRoot;
       oldRoot = NULL;
 			return true;
+
+
+      /*
+      DataType newVal = root->right->val;
+      root->val = newVal;
+
+      delete root->right;
+      root->right = NULL;
+      */
+
+      return true;
 		}
-		else if (root_->left != NULL  && root_->right == NULL) //node has one child
+		else if (root->left != NULL  && root->right == NULL) //node has one child
 		{
 			//swap root with left
 			/*
@@ -124,56 +141,74 @@ bool recursiveRemove(DataType value, BinarySearchTree::Node *root_)
       delete oldRoot;
       oldRoot = NULL;
       */
-			BinarySearchTree::Node* oldRoot = root_;
+			//BinarySearchTree::Node* oldRoot = root_;
 			//BinarySearchTree::Node* newRoot = root_->left;
-			root_ = root_->left;
+			//root_ = root_->left;
+			//delete oldRoot;
+      //oldRoot = NULL;
+			//return true;
+
+      DataType newVal = root->left->val;
+      root->val = newVal;
+
+      delete root->left;
+      root->left = NULL;
+
+
+      return true;
+
+      /*
+      BinarySearchTree::Node* oldRoot = root;
+			BinarySearchTree::Node* newRoot = root->left;
+			root_prev = root->left;
 			delete oldRoot;
-      oldRoot = NULL;
+      //oldRoot = NULL;
+
 			return true;
-      //DataType newVal = newRoot->val;
-      //oldRoot->val = newVal;
-      //newRoot = NULL;
-     // delete newRoot;
-
-
-      //return true;
-
+      */
 		}
 		else //node has two children
 		{
 			//find the smallest value in current tree's right subtree
-			BinarySearchTree::Node* currNode = root_->right;
+			BinarySearchTree::Node* currNode = root->right;
 			while(currNode->left != NULL)
 			{
 				currNode = currNode->left;
 			}
 
 			//swap smallest value of right subtree with root
-			BinarySearchTree::Node* oldRoot = root_;
+			/*
+      BinarySearchTree::Node* oldRoot = root_;
 			BinarySearchTree::Node* newRoot = currNode;
 			root_ = newRoot;
 			delete oldRoot;
       oldRoot = NULL;
 			return true;
+      */
+      DataType newVal = currNode->val;
+      root->val = newVal;
+
+      delete currNode;
+      currNode = NULL;
 		}
 	}
 
 	else
 	{
-		if(value > root_->val)
+		if(value > root->val)
 		{
-			if(root_->right != NULL)
+			if(root->right != NULL)
 			{
-				return recursiveRemove(value, root_->right);
+				return recursiveRemove(value, root->right, root);
 			}
 			else{return false;}
 
 		}
-		if(value < root_->val)
+		if(value < root->val)
 		{
-			if(root_->left != NULL)
+			if(root->left != NULL)
 			{
-				return recursiveRemove(value, root_->left);
+				return recursiveRemove(value, root->left, root);
 			}
 			else{return false;}
 
@@ -194,7 +229,7 @@ bool BinarySearchTree::remove(DataType value)
 
 	else
 	{
-		if(recursiveRemove(value, this->root_)==true)
+		if(recursiveRemove(value, this->root_, NULL)==true)
 		{
 			size_--;
 			return true;
